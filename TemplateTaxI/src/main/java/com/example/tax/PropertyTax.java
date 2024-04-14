@@ -44,7 +44,7 @@ public class PropertyTax implements Tax {
 
     @Override
     public void calculateTaxAmount() {
-     this.taxAmount=this.taxableAmount*0.5;
+     this.taxAmount=this.taxableAmount*0.05;
     }
 
     @Override
@@ -54,12 +54,12 @@ public class PropertyTax implements Tax {
 
     @Override
     public String getTaxType() {
-        return "Property Tax";
+        return "property";
     }
 
     @Override
     public boolean isTaxPayed() {
-        return false;
+        return true;
     }
 
     @Override

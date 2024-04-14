@@ -56,7 +56,7 @@ public class IncomeTax  implements Tax {
 
     @Override
     public boolean isTaxPayed() {
-        return false;
+        return true;
     }
 
     @Override
