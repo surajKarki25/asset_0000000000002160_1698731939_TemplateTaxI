@@ -9,39 +9,47 @@ import java.util.Scanner;
 public class TaxApplication {
 
 	public static void main(String[] args) {
-		// Initialize the Spring application context
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-		// Create a Scanner object to read user input
 		Scanner scanner = new Scanner(System.in);
-
 		System.out.println("Welcome to the Tax Payment Application");
 
 		while (true) {
 			System.out.println("Please select which tax you want to pay: \n1. Income \n2. Property\n3. Exit");
 			int userChoice = scanner.nextInt();
 
+			String taxChoice = "";
 			switch (userChoice) {
-				case 1:
-					payTax("incomeTax", context);
-					break;
-				case 2:
-					payTax("propertyTax", context);
-					break;
-				case 3:
+				case 1 -> taxChoice = "incomeTax";
+				case 2 -> taxChoice = "propertyTax";
+				case 3 -> {
 					System.out.println("Exiting...");
+					context.close();
 					return;
-				default:
+				}
+				default -> {
 					System.out.println("Invalid choice");
 					return;
+				}
+			}
+
+			Tax tax = (Tax) context.getBean(taxChoice);
+			if (tax.isTaxPayed()) {
+				System.out.println("You have already paid " + tax.getTaxType() + " tax.");
+			} else {
+				System.out.println("Please enter your Income/Property value:");
+				double taxableAmount = scanner.nextDouble();
+				tax.setTaxableAmount((int)taxableAmount);
+				tax.calculateTaxAmount();
+				System.out.println("Tax amount to be paid:" + tax.getTaxAmount());
+				System.out.println("Do you want to pay the tax? (yes/exit)");
+				String payChoice = scanner.next();
+				if (payChoice.equalsIgnoreCase("yes")) {
+					tax.payTax();
+					System.out.println("Tax paid successfully.");
+				} else {
+					System.out.println("Tax payment cancelled.");
+				}
 			}
 		}
-	}
-
-	private static void payTax(String taxChoice, ClassPathXmlApplicationContext context) {
-		// Pick the tax bean using context.getBean() method using taxChoice string.
-		Tax tax = (Tax) context.getBean(taxChoice);
-		System.out.println("Paying " + tax.getTaxType() + " tax.");
-		tax.payTax();
 	}
 }
