@@ -56,11 +56,13 @@ public class IncomeTax  implements Tax {
 
     @Override
     public boolean isTaxPayed() {
-        return true;
+        return isTaxPayed;
+
     }
 
     @Override
     public void payTax() {
      System.out.println("Income Tax Payed");
+    isTaxPayed=true;
     }
 }

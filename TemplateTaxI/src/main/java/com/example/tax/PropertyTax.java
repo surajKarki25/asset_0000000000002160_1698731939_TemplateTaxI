@@ -11,10 +11,10 @@ public class PropertyTax implements Tax {
      */
     double taxableAmount;
     double taxAmount;
-    boolean isTaxable;
+    boolean isTaxPayed;
 
     public PropertyTax() {
-        this.isTaxable=false;
+        this.isTaxPayed=false;
     }
     //    // This method sets the taxable amount (i.e. the income for income tax or the property value for property tax)
 //    void setTaxableAmount(int amount);
@@ -59,11 +59,12 @@ public class PropertyTax implements Tax {
 
     @Override
     public boolean isTaxPayed() {
-        return true;
+        return  isTaxPayed;
     }
 
     @Override
     public void payTax() {
     System.out.println("Property tax payed");
+    isTaxPayed=true;
     }
 }

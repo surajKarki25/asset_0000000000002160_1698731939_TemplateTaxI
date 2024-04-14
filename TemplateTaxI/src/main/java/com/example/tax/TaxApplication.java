@@ -3,32 +3,45 @@ package com.example.tax;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.Scanner;
+
 @SpringBootApplication
 public class TaxApplication {
 
 	public static void main(String[] args) {
-		// Take ClassPathXmlApplicationContext from applicationContext.xml file
+		// Initialize the Spring application context
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-		// Retrieve the beans for IncomeTax and PropertyTax
-		Tax incomeTax = (Tax) context.getBean("incomeTax");
-		Tax propertyTax = (Tax) context.getBean("propertyTax");
+		// Create a Scanner object to read user input
+		Scanner scanner = new Scanner(System.in);
 
-		// Set the taxable amounts
-		incomeTax.setTaxableAmount(3000000); // For example, set the income to $5000
-		propertyTax.setTaxableAmount(100000); // For example, set the property value to $100,000
+		System.out.println("Welcome to the Tax Payment Application");
 
-		// Calculate the tax amounts
-		incomeTax.calculateTaxAmount();
-		propertyTax.calculateTaxAmount();
+		while (true) {
+			System.out.println("Please select which tax you want to pay: \n1. Income \n2. Property\n3. Exit");
+			int userChoice = scanner.nextInt();
 
-		// Print the tax amounts
-		System.out.println("Income Tax Amount: $" + incomeTax.getTaxAmount());
-		System.out.println("Property Tax Amount: $" + propertyTax.getTaxAmount());
-
-		// Optionally, pay the taxes
-		incomeTax.payTax();
-		propertyTax.payTax();
+			switch (userChoice) {
+				case 1:
+					payTax("incomeTax", context);
+					break;
+				case 2:
+					payTax("propertyTax", context);
+					break;
+				case 3:
+					System.out.println("Exiting...");
+					return;
+				default:
+					System.out.println("Invalid choice");
+					return;
+			}
+		}
 	}
 
+	private static void payTax(String taxChoice, ClassPathXmlApplicationContext context) {
+		// Pick the tax bean using context.getBean() method using taxChoice string.
+		Tax tax = (Tax) context.getBean(taxChoice);
+		System.out.println("Paying " + tax.getTaxType() + " tax.");
+		tax.payTax();
+	}
 }
