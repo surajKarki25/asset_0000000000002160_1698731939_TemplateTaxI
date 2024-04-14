@@ -25,7 +25,7 @@ public class IncomeTax  implements Tax {
     @Override
     public void calculateTaxAmount() {
       if(this.taxableAmount>0 && this.taxableAmount<300000){
-         this.taxAmount=taxableAmount;
+         this.taxAmount=0;
       }
        else if(this.taxableAmount>300000 && this.taxableAmount<600000){
            this.taxAmount=taxableAmount*0.05;

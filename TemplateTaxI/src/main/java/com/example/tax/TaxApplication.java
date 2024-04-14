@@ -15,7 +15,7 @@ public class TaxApplication {
 		Tax propertyTax = (Tax) context.getBean("propertyTax");
 
 		// Set the taxable amounts
-		incomeTax.setTaxableAmount(30000); // For example, set the income to $5000
+		incomeTax.setTaxableAmount(3000000); // For example, set the income to $5000
 		propertyTax.setTaxableAmount(100000); // For example, set the property value to $100,000
 
 		// Calculate the tax amounts
