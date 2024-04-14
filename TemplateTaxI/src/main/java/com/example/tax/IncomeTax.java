@@ -24,19 +24,19 @@ public class IncomeTax  implements Tax {
 
     @Override
     public void calculateTaxAmount() {
-      if(this.taxableAmount>0 && this.taxableAmount<3){
+      if(this.taxableAmount>0 && this.taxableAmount<300000){
          this.taxAmount=taxableAmount;
       }
-       else if(this.taxableAmount>3 && this.taxableAmount<6){
+       else if(this.taxableAmount>300000 && this.taxableAmount<600000){
            this.taxAmount=taxableAmount*0.05;
         }
-      else if(this.taxableAmount>6 && this.taxableAmount<9){
+      else if(this.taxableAmount>600000 && this.taxableAmount<900000){
           this.taxAmount=taxableAmount*0.10;
       }
-      else if(this.taxableAmount>9 && this.taxableAmount<12){
+      else if(this.taxableAmount>900000 && this.taxableAmount<1200000){
           this.taxAmount=taxableAmount*0.15;
       }
-      else if(this.taxableAmount>12 && this.taxableAmount<15){
+      else if(this.taxableAmount>1200000 && this.taxableAmount<1500000){
           this.taxAmount=taxableAmount*0.20;
       } else{
           this.taxAmount=taxableAmount*0.30;
